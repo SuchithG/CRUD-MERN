@@ -6,7 +6,7 @@ import "./App.css";
 function App() {
   const [foodName, setFoodName] = useState("");
   const [days, setDays] = useState(0);
-
+  const [newFoodName, setNewFoodName] = useState("");
   const [foodList, setFoodList] = useState([]);
 
   useEffect(() => {
@@ -20,6 +20,17 @@ function App() {
       foodName: foodName,
       days: days,
     });
+  };
+
+  const updateFood = (id) => {
+    Axios.put("http://localhost:3001/update", {
+      id: id,
+      newFoodName: newFoodName,
+    });
+  };
+
+  const deleteFood = (id) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`);
   };
 
   return (
@@ -43,9 +54,18 @@ function App() {
       <h1>Food List</h1>
       {foodList.map((val, key) => {
         return (
-          <div key={key}>
+          <div key={key} className="food">
             <h1>{val.foodName}</h1>
             <h1>{val.daysSinceIAte}</h1>
+            <input
+              type="text"
+              placeholder="New Food Name..."
+              onChange={(event) => {
+                setNewFoodName(event.target.value);
+              }}
+            />
+            <button onClick={() => updateFood(val._id)}>Update</button>
+            <button onClick={() => deleteFood(val._id)}>Delete</button>
           </div>
         );
       })}

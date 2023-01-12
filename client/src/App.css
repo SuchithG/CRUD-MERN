@@ -12,3 +12,14 @@ input, button {
   font-size: 20px;
   margin: 5px;
 }
+
+.food{
+  display: flex;
+  flex-direction: column;
+  border : 2px solid black;
+  width: 320px;
+  padding: 10px;
+  margin: 1px;
+  justify-content: center;
+  align-items: center;
+}
