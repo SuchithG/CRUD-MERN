@@ -1,25 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const dotenv = require("dotenv");
+const dotenv = require("dotenv");
 const cors = require("cors");
 const app = express();
 
 const FoodModel = require("./models/Food");
 
-// dotenv.config({ path: "config.env" });
-const PORT = 3001;
+dotenv.config({ path: ".env" });
+const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cors());
 
 mongoose.set("strictQuery", false);
 
-mongoose.connect(
-  "mongodb+srv://suchith:EV5GYUy4MpYk2!2@cluster0.2ejxvg2.mongodb.net/food",
-  {
-    useNewUrlParser: true,
-  }
-);
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+});
 
 app.post("/insert", async (req, res) => {
   const foodName = req.body.foodName;

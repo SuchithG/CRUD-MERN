@@ -7,9 +7,11 @@ function App() {
   const [foodName, setFoodName] = useState("");
   const [days, setDays] = useState(0);
 
+  const [foodList, setFoodList] = useState([]);
+
   useEffect(() => {
     Axios.get("http://localhost:3001/read").then((response) => {
-      console.log(response);
+      setFoodList(response.data);
     });
   }, []);
 
@@ -38,6 +40,15 @@ function App() {
         }}
       />
       <button onClick={addToList}>Add To List</button>
+      <h1>Food List</h1>
+      {foodList.map((val, key) => {
+        return (
+          <div key={key}>
+            <h1>{val.foodName}</h1>
+            <h1>{val.daysSinceIAte}</h1>
+          </div>
+        );
+      })}
     </div>
   );
 }
